@@ -3,6 +3,8 @@ const dispatch = require("../../db/dispatch");
 const { mkdir, exist, readdir, getfolders } = require("../../db/forldermanager");
 const router = express.Router();
 const path = require("path");
+const { validate_new_girl } = require("./middlewares");
+
 
 const path_girls = path.join(__dirname + "../../../db/RPS/characters");
 (() => {
@@ -25,7 +27,15 @@ router.get("/girls/gets", async (req, res) => {
   res.json({ girls });
 });
 
-// router.post("/girls/preview", (req, res) => {
+
+router.post("/girls/create", async (req, res) => {
+const data = validate_new_girl(req, res)
+  // res.status(300).json({})
+  // const girls = await getfolders(path_girls);
+  // res.json({ girls });
+});
+
+// router.post("/girls/pre  view", (req, res) => {
 //     res.json(req.session.girls).status(200)
 // });
 
