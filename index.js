@@ -3,16 +3,16 @@ const app = express();
 const routerRPS = require("./src/router/RPS/routes");
 const GAMES = require('./src/db/games');
 const find = require('./src/db/find');
-const session = require('express-session');
+// const session = require('express-session');
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(session({
-    secret: 'tu_secreto_aqui',
-    resave: false,
-    saveUninitialized: true
-  }));
+// app.use(session({
+//     secret: 'tu_secreto_aqui',
+//     resave: false,
+//     saveUninitialized: true
+//   }));
 app.use(express.static('public'));
 app.use(find(GAMES, "RPS" , "id")[0].url, routerRPS);
 

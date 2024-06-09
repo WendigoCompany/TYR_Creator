@@ -79,20 +79,33 @@ const build_girls = () => {
       });
 
       document.getElementById("preview").onclick = () => {
-        const data = {
-          name: document.getElementsByName("name")[0].value,
-          s_name: document.getElementsByName("s_name")[0].value,
-          c_model: document.getElementsByName("c_model")[0].value,
-          l_model: document.getElementsByName("l_model")[0].value,
-          root: document.getElementsByName("root")[0].value,
-          imgs: document.getElementsByName("imgs")[0].value,
-        };
+        const data = EXTRACT_DATA(
+          ["name", "s_name", "c_model", "l_model", "root", "imgs"],
+          "name"
+        );
+        // = {
+        //   name: document.getElementsByName("name")[0].value,
+        //   s_name: document.getElementsByName("s_name")[0].value,
+        //   c_model: document.getElementsByName("c_model")[0].value,
+        //   l_model: document.getElementsByName("l_model")[0].value,
+        //   root: document.getElementsByName("root")[0].value,
+        //   imgs: document.getElementsByName("imgs")[0].value,
+        // };
+        sessionStorage.setItem("girl", JSON.stringify(data))
 
-        axios
-          .post(sessionStorage.getItem("base") + "/girls/catch", data)
-          .then((re) => {
-            window.open(sessionStorage.getItem("base") + "/girls/preview", '_blank');
-          });
+        window.open(
+          sessionStorage.getItem("base") + "/girls/preview",
+          "_blank"
+        );
+
+        // axios
+        //   .post(sessionStorage.getItem("base") + "/girls/catch", data)
+        //   .then((re) => {
+        //     window.open(
+        //       sessionStorage.getItem("base") + "/girls/preview",
+        //       "_blank"
+        //     );
+        //   });
       };
     });
 
