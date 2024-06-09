@@ -1,0 +1,33 @@
+@import "../Basics/colors.less";
+@import "../Basics/main.less";
+@import "../Basics/sw2.less";
+@import "../LoadModal.less";
+
+// // @import "../../styles/less/Basics/";
+
+
+
+.gm-btn{
+    font-size: 1.8rem;
+    width: 22%;
+    padding: 1% 0%;
+    background-color: transparent;
+    border: 2px solid @orange;
+    color: @orange;
+    transition: all .3s;
+    margin-right: 1%;
+}
+
+.gm-btn:hover , .gm-button-add:hover {
+    background-color: @orange;
+    border: 2px solid @black;
+    color: @black;
+
+}
+
+
+.gm-button-add{
+    .gm-btn;
+    width: 80px;
+
+}

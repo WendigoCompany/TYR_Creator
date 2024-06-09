@@ -1,0 +1,107 @@
+@import "./colors.less";
+.btn(@bc) {
+  background-color: @bc;
+  cursor: pointer;
+  border: black;
+  border-radius: 2%;
+  padding: 0.3rem;
+  transition: background-color 0.3s, color 0.3s, border 0.3s;
+}
+
+.out-btn(@bc) {
+  background-color: transparent;
+  cursor: pointer;
+  border: 2px solid @bc;
+  color: @bc;
+  border-radius: 2%;
+  padding: 0.3rem;
+  transition: background-color 0.3s, color 0.3s, border 0.3s;
+}
+
+
+.btn-success {
+  .btn(@dgreen);
+}
+
+.btn-danger {
+  .btn(@dred);
+}
+
+.btn-warning {
+  .btn(yellow);
+}
+
+.btn-info {
+  .btn(@cyan);
+}
+
+.btn-out-success {
+  .out-btn(@dgreen);
+}
+
+.btn-out-danger {
+  .out-btn(@dred);
+}
+
+.btn-out-warning {
+  .out-btn(@yellow);
+}
+
+.btn-out-info {
+  .out-btn(@teal);
+}
+
+.hover-out {
+  color: black;
+  border: 2px solid black;
+}
+
+.btn-out-success:hover {
+  background-color: @green;
+  .hover-out;
+}
+.btn-out-danger:hover {
+  background-color: @red;
+  .hover-out;
+}
+.btn-out-warning:hover {
+  background-color: yellow;
+  .hover-out;
+}
+.btn-out-info:hover {
+  background-color: @cyan;
+  .hover-out;
+}
+
+.btn-success:hover {
+  background-color: @green;
+}
+.btn-danger:hover {
+  background-color: @red;
+}
+.btn-warning:hover {
+  background-color: yellow;
+}
+.btn-info:hover {
+  background-color: @cyan;
+}
+// .btn-warning{
+
+//     background-color: yellow;
+
+//     .btn;
+// }
+
+// .btn-out-success{
+
+// }
+
+// .btn-out-danger{
+//     background-color: black;
+//     .btn;
+// }
+
+// .btn-out-warning{
+//     background-color: black;
+//     .btn;
+// }

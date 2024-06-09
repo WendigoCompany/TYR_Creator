@@ -1,0 +1,28 @@
+@import "./Basics/colors.less";
+@import "./Basics/main.less";
+
+
+.gm-button{
+    font-size: 1.8rem;
+    width: 22%;
+    padding: 1% 0%;
+    background-color: transparent;
+    border: 2px solid @orange;
+    color: @orange;
+    transition: all .3s;
+    margin-right: 1%;
+}
+
+.gm-button:hover , .gm-button-add:hover {
+    background-color: @orange;
+    border: 2px solid @black;
+    color: @black;
+
+}
+
+
+.gm-button-add{
+    .gm-button;
+    width: 80px;
+
+}
