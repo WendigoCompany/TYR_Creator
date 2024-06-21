@@ -45,8 +45,8 @@ const create_girls_modal =(pre_data={})=>{
       <td>
         <label class="gm-lb" for="">IMG LOBY</label> <br />
         <input  value="${
-          pre_data.imgs || ""
-        }"  type="text" class="gm-inp" name="imgs" class="input-pop" />
+          pre_data.loby_card || ""
+        }"  type="text" class="gm-inp" name="loby_card" class="input-pop" />
       </td>
     </tr>
   </table>
@@ -74,7 +74,8 @@ const create_girls_modal =(pre_data={})=>{
         c_model: document.getElementsByName("c_model")[0].value,
         l_model: document.getElementsByName("l_model")[0].value,
         root: document.getElementsByName("root")[0].value,
-        imgs: document.getElementsByName("imgs")[0].value,
+        loby_card: document.getElementsByName("loby_card")[0].value,
+        id : (pre_data != undefined && pre_data.id != undefined) ? pre_data.id : undefined
       };
 
       axios
@@ -100,7 +101,7 @@ const create_girls_modal =(pre_data={})=>{
 
   document.getElementById("preview").onclick = () => {
     const data = EXTRACT_DATA(
-      ["name", "s_name", "c_model", "l_model", "root", "imgs"],
+      ["name", "s_name", "c_model", "l_model", "root", "loby_card"],
       "name"
     );
     // = {
@@ -134,10 +135,22 @@ const build_girls = () => {
   const container = $("#girl-cont");
 
   // gm-button
-  girls.map((g) => {});
+  girls.map((g) => {
+    const btn = $("<button>")
+    .attr({ class: "gm-button-add" })
+    .text(g.name)
+    .css({width : "auto"})
+    .on("click", () => {
+      create_girls_modal(g)
+    });
+
+  container.append(btn);
+
+  });
 
   const btn = $("<button>")
     .attr({ class: "gm-button-add" })
+
     .text("+")
     .on("click", () => {
       create_girls_modal()
@@ -148,6 +161,6 @@ const build_girls = () => {
 
 (async () => {
   girls = (await axios.get(sessionStorage.getItem("base") + "/girls/gets")).data
-    .girls;
+    .girls_data;
   build_girls();
 })();

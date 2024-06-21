@@ -3,7 +3,7 @@ let girl_data;
 const show_preview =()=>{
     console.log(girl_data);
     $("#title").text(`${girl_data.name}`)
-    $("#prev-img").attr({src: girl_data.imgs})
+    $("#prev-img").attr({src: girl_data.loby_card})
 
 
     $("#name").text( "FULL NAME: " +  girl_data.name)

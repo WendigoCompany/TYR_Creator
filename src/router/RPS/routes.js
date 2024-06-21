@@ -1,12 +1,13 @@
 const express = require("express");
 const dispatch = require("../../db/dispatch");
-const { mkdir, exist, readdir, getfolders } = require("../../db/forldermanager");
+const { mkdir, exist, readdir, getfolders, readFile, buffToJSON } = require("../../db/forldermanager");
 const router = express.Router();
-const path = require("path");
-const { validate_new_girl } = require("./middlewares");
+
+const { validate_new_girl, validate_scene } = require("../../middlewars/RPS/middlewares");
+const { log } = require("console");
+const { path_girls, langs } = require("../../db/RPS/basic_params");
 
 
-const path_girls = path.join(__dirname + "../../../db/RPS/characters");
 (() => {
   const folders = [path_girls];
 
@@ -24,33 +25,63 @@ router.get("/", (req, res) => {
 router.get("/girls/gets", async (req, res) => {
 
   const girls = await getfolders(path_girls);
-  res.json({ girls });
+const girls_data = [];
+  for (let i = 0; i < girls.length; i++) {
+    let data = await readFile(path_girls + girls[i] + "/params.json");
+    data = buffToJSON(data);
+    girls_data.push(data)
+  }
+
+  res.json({ girls_data });
 });
 
 
 router.post("/girls/create", async (req, res) => {
 const data = validate_new_girl(req, res)
-  // res.status(300).json({})
-  // const girls = await getfolders(path_girls);
-  // res.json({ girls });
 });
 
-// router.post("/girls/pre  view", (req, res) => {
-//     res.json(req.session.girls).status(200)
-// });
 
 router.get("/girls/preview", (req, res) => {  
   res.sendFile(dispatch("RPS") + "/girls_preview.html");
 });
 
-// router.post("/girls/catch", (req, res) => {
-//   req.session.girls = req.body;
-//   console.log( req.body);
-//   res.json({}).status(200);
-// });
+
 
 router.get("/girls", (req, res) => {
   res.sendFile(dispatch("RPS") + "/girls.html");
+});
+
+
+
+router.get("/scenes", (req, res) => {
+  res.sendFile(dispatch("RPS") + "/scenes.html");
+});
+
+router.post("/scenes", async(req, res) => {
+  const girls = await getfolders(path_girls);
+  res.json({girls})
+});
+
+
+router.get("/scenes/:waifu", (req, res) => {
+  res.sendFile(dispatch("RPS") + "/scenes_waifu.html");
+});
+
+router.post("/scenes/:waifu", async (req, res) => {
+  const scenes = await getfolders(path_girls + req.params.waifu + "/" + langs[0])
+  res.json({scenes})
+  // res.sendFile(dispatch("RPS") + "/scenes_waifu.html");
+});
+
+
+router.post("/scenes/:waifu/:scene_id", async (req, res) => {
+  // res.sendFile(dispatch("RPS") + "/scene.html");
+  validate_scene(req,res)
+});
+
+
+router.get("/scenes/:waifu/:scene_id", async (req, res) => {
+  res.sendFile(dispatch("RPS") + "/scene.html");
 });
 
 module.exports = router;
