@@ -56,7 +56,8 @@ const validate_scene = async (req, res) => {
 
   const scenedata = {};
 
-  langs.map(async (l) => {
+  for (let i = 0; i < langs.length; i++) {
+    const l = langs[i];
     const scene_uri =
       path_girls + params.waifu + "/" + l + "/" + `scene_` + params.scene_id;
     try {
@@ -65,24 +66,24 @@ const validate_scene = async (req, res) => {
       cc("success", "The scene " + params.scene_id + "/" + l + " was loaded!");
     } catch (error) {
       if (error.errno == "-4058") {
-  
         cc(
           "error",
-          "The scene " + params.scene_id + "/" + l + " doesn't exist... Creating..."
+          "The scene " +
+            params.scene_id +
+            "/" +
+            l +
+            " doesn't exist... Creating..."
         );
         await mkdir(scene_uri);
-        await writeFile(
-          scene_uri + "/data.json",
-          JSON.stringify([])
-        );
+        await writeFile(scene_uri + "/data.json", JSON.stringify([]));
         const init_file_data = `
-        import SceneData from "./data"
+      import SceneData from "./data"
 
-        export default{
-            data : SceneData,
-            cbs : {}
-        }
-        `;
+      export default{
+          data : SceneData,
+          cbs : {}
+      }
+      `;
 
         await writeFile(scene_uri + "/init.js", init_file_data);
         scenedata[l] = [];
@@ -95,9 +96,9 @@ const validate_scene = async (req, res) => {
         console.error(error);
       }
     }
-  });
+  }
 
-
+  console.log(scenedata);
   res.status(200).json(scenedata);
 };
 

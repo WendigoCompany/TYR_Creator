@@ -11,7 +11,6 @@ const build_scene = () => {
     const btn = $("<button>")
       .attr({ class: "gm-button-add" })
       .text(g)
-      .css({ width: "auto" })
       .on("click", () => {
         // window.location.href = sessionStorage.getItem("base") + "/scenes/" + g;
         window.location.href =
